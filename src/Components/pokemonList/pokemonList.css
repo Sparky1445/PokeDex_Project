@@ -1,5 +1,4 @@
-pokemonListWrapper {
-    margin:2rem auto;
+.pokemonListWrapper {
     display: flex;
     flex-direction:column;
 }
@@ -22,4 +21,10 @@ pokemonListWrapper {
     padding: 0.5rem 1rem 0.5rem 1rem;
     margin: 1rem;
     border-radius: 10px;
+}
+
+.pageCount{
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: "Pokemon Solid" , sans-serif;
 }

@@ -1,5 +1,9 @@
 @import url('https://fonts.cdnfonts.com/css/pokemon-solid');
 
+.Link{
+    text-decoration: none;
+}
+
 .pokemon {
     flex-basis:20%;
     height:400px;
@@ -17,11 +21,7 @@
 
 }
 
-.pokemonName{
-    font-family: 'Pokemon Solid', sans-serif;
-    font-size:larger;
-    letter-spacing: 3px;
-}
+
 
 .pokemon:hover{
     background-color:beige;

@@ -7,11 +7,27 @@ import './pokemonList.css'
 function PokemonList() {
     const [pokemonList, setPokemonList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const POKEDEX_URL = 'https://pokeapi.co/api/v2/pokemon';
+    const [pokedexUrl, setPokedexUrl] = useState('https://pokeapi.co/api/v2/pokemon');
+
+    const [nextUrl, setNextUrl] = useState("");
+    const [prevUrl, setPrevUrl] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 20;
+
+
+
+
+
+
 
     async function downloadPokemons() {
-        const response = await axios.get(POKEDEX_URL);  //fetch pokemons from the api
-        const pokemonResults = response.data.results;   // create an array of pokemons
+
+        const response = await axios.get(pokedexUrl);  //fetch pokemons from the api
+        const pokemonResults = response.data.results;// create an array of pokemons
+
+        setNextUrl(response.data.next);
+        setPrevUrl(response.data.previous);
+
 
         const pokemonResultsPromise = pokemonResults.map((pokemon) => { return axios.get(pokemon.url) })
         //iterating over array of pokemons and getting the url from them and storing it as array of promises
@@ -34,7 +50,6 @@ function PokemonList() {
             }
         });
         setPokemonList(res);
-
         setIsLoading(false);
 
     }
@@ -43,23 +58,30 @@ function PokemonList() {
 
     useEffect(() => {
         downloadPokemons();
-    }, []);                                   //everytime the value in the array changes , the effect is called
+    }, [pokedexUrl]);                                   //everytime the value in the array changes , the effect is called
 
     return (
         <>
             <div className="pokemonListWrapper" >
+                <p className='pageCount'>Page: {currentPage} / {totalPages} </p>
 
                 <div className="AllPokemonWrapper">
                     {(isLoading) ? "Loading..." :
                         pokemonList.map((p) => {
-                            return <Pokemon key={p.id} name={p.name} image={p.image} />
+                            return <Pokemon key={p.id} name={p.name} image={p.image} id={p.id} />
                         })
                     }
                 </div>
 
                 <div className='controls'>
-                    <button>prev</button>
-                    <button>next</button>
+                    <button disabled={prevUrl == null} onClick={() => {
+                        setPokedexUrl(prevUrl);
+                        setCurrentPage(currentPage - 1);
+                    }}>prev</button>
+                    <button disabled={nextUrl == null} onClick={() => {
+                        setPokedexUrl(nextUrl);
+                        setCurrentPage(currentPage + 1);
+                    }} >next</button>
                 </div>
 
             </div>
