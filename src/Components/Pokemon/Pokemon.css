@@ -1,5 +1,28 @@
-.pokemon-wrapper {
+@import url('https://fonts.cdnfonts.com/css/pokemon-solid');
+
+.pokemon {
+    flex-basis:20%;
+    height:400px;
+    width:300px;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.pokemonImage{
+    margin-top:1rem;
+    height:150px;
+    max-height:80%;
+    max-width:200px;
+
+}
+
+.pokemonName{
+    font-family: 'Pokemon Solid', sans-serif;
+    font-size:larger;
+    letter-spacing: 3px;
+}
+
+.pokemon:hover{
+    background-color:beige;
 }
